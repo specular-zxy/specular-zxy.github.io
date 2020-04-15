@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>Mysql | centos下的Mariadb数据库的常用指令存档</title>
+      <link href="/2020/04/15/Mysql-centos%E4%B8%8B%E7%9A%84Mariadb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E5%AD%98%E6%A1%A3/"/>
+      <url>/2020/04/15/Mysql-centos%E4%B8%8B%E7%9A%84Mariadb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E5%AD%98%E6%A1%A3/</url>
+      
+        <content type="html"><![CDATA[<p>登陆指令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure><p>然后输入密码</p><p>选择数据库：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use DATABASE;</span><br></pre></td></tr></table></figure><p>查看所有表：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br></pre></td></tr></table></figure><p>描述表的条目属性等：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describa TABLENAME;</span><br></pre></td></tr></table></figure><blockquote><p>MySql 和 MariaDB 不区分大小写。</p></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Mysql </tag>
+            
+            <tag> node.js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>建站 | Github pages绑定域名遇到的坑</title>
       <link href="/2020/04/10/%E5%BB%BA%E7%AB%99-github-pages%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/"/>
       <url>/2020/04/10/%E5%BB%BA%E7%AB%99-github-pages%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/</url>
