@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zxysite.xyz/"/>
-  <updated>2020-04-19T14:49:45.649Z</updated>
+  <updated>2020-06-05T14:15:15.458Z</updated>
   <id>http://zxysite.xyz/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PAT | 不会的题</title>
+    <link href="http://zxysite.xyz/2020/06/05/PAT-%E4%B8%8D%E4%BC%9A%E7%9A%84%E9%A2%98/"/>
+    <id>http://zxysite.xyz/2020/06/05/PAT-%E4%B8%8D%E4%BC%9A%E7%9A%84%E9%A2%98/</id>
+    <published>2020-06-05T14:13:02.000Z</published>
+    <updated>2020-06-05T14:15:15.458Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h3><p><a href="https://pintia.cn/problem-sets/994805342720868352/problems/994805375457411072" target="_blank" rel="noopener">A1091</a></p><h3 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h3><p><a href="https://pintia.cn/problem-sets/994805342720868352/problems/994805364711604224" target="_blank" rel="noopener">A1103</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;广度优先搜索&quot;&gt;&lt;a href=&quot;#广度优先搜索&quot; class=&quot;headerlink&quot; title=&quot;广度优先搜索&quot;&gt;&lt;/a&gt;广度优先搜索&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://pintia.cn/problem-sets/99480534272086
+      
+    
+    </summary>
+    
+    
+      <category term="PAT备考" scheme="http://zxysite.xyz/categories/PAT%E5%A4%87%E8%80%83/"/>
+    
+    
+      <category term="PAT" scheme="http://zxysite.xyz/tags/PAT/"/>
+    
+      <category term="Coding" scheme="http://zxysite.xyz/tags/Coding/"/>
+    
+  </entry>
   
   <entry>
     <title>PAT备考 | 贪心算法 —— A1033</title>
