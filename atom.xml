@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zxysite.xyz/"/>
-  <updated>2020-06-05T14:15:15.458Z</updated>
+  <updated>2020-10-30T03:31:30.713Z</updated>
   <id>http://zxysite.xyz/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>PAT | 不会的题</title>
-    <link href="http://zxysite.xyz/2020/06/05/PAT-%E4%B8%8D%E4%BC%9A%E7%9A%84%E9%A2%98/"/>
-    <id>http://zxysite.xyz/2020/06/05/PAT-%E4%B8%8D%E4%BC%9A%E7%9A%84%E9%A2%98/</id>
+    <title>Nginx | 学习笔记</title>
+    <link href="http://zxysite.xyz/2020/10/30/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://zxysite.xyz/2020/10/30/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-10-30T03:28:52.000Z</published>
+    <updated>2020-10-30T03:31:30.713Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="no1-nginx-反向代理"><a href="#No1-Nginx-反向代理" class="headerlink" title="No1. Nginx 反向代理"></a>No1. Nginx 反向代理</h1><p>Nginx是一个高性能的HTTP和反向代理服务器。</p><p>Nginx 在启动后，在 unix 系统中会以 daemon 的方式在后台运行，后台进程包含一个 master 进程和多个 worker 进程。我们也可以手动地关掉后台模式，让 Nginx 在前台运行，并且通过配置让 Nginx 取消 master 进程，从而可以使 Nginx 以单进程方式运行。很显然，生产环境下我们肯定不会这么做，所以关闭后台模式，一般是用来调试用的，在后面的章节里面，我们会详细地讲解如何调试 Nginx。所以，我们可以看到，Nginx 是以多进程的方式来工作的，当然 Nginx 也是支持多线程的方式的，只是我们主流的方式还是多进程的方式，也是 Nginx 的默认方式。</p><p>根据我查阅的资料，Nginx最主要的功能是支持Http的访问，当然还支持mail的多种邮件协议</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line"><span class="comment"># 主要模块</span></span><br><span class="line">server &#123;</span><br><span class="line"><span class="comment"># 主要服务部分</span></span><br><span class="line">listen: <span class="number">80</span>; <span class="comment"># 端口号</span></span><br><span class="line">location / &#123; <span class="comment"># / 可以接url地址啥的</span></span><br><span class="line">root: /data <span class="comment"># 服务器对应的地址端口</span></span><br><span class="line">proxy_pass: &lt;http://www.bilibili.com&gt; <span class="comment"># 这就是一个最简单的反向代理例子</span></span><br><span class="line">&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location /some/path/ &#123;</span><br><span class="line">    proxy_pass： &lt;http://www.example.com/link/;&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>大公司的反向代理设置</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">upstream baidunode &#123;</span><br><span class="line">server <span class="number">172.25</span><span class="number">.0</span><span class="number">.105</span>:<span class="number">8081</span> weight=<span class="number">10</span> max_fails=<span class="number">3</span>     fail_timeout=<span class="number">30</span>s;</span><br><span class="line">&#125;</span><br><span class="line">location / &#123;</span><br><span class="line">    add_header Cache-Control no-cache;</span><br><span class="line">    proxy_set_header   Host local.baidu.com;</span><br><span class="line">    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">   proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">   proxy_pass         &lt;http://baidunode&gt;;</span><br><span class="line">   proxy_connect_timeout <span class="number">30</span>s;</span><br><span class="line"> &#125;</span><br><span class="line">proxy_set_header Host local.baidu.com;</span><br></pre></td></tr></table></figure><p>HTTP header 中的 Host 含义为所请求的目的主机名。当 nginx 作为反向代理使用，而后端真实 web 服务器设置有类似 <strong>防盗链功能</strong> ，或者根据 HTTP header 中的 Host 字段来进行 <strong>路由</strong> 或 <strong>过滤</strong> 功能的话，若作为反向代理的 nginx 不重写请求头中的 Host 字段，将会导致请求失败。<code>proxy_set_header</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-Forwarded-For $proxy_add_x_forwarded_for;</span><br></pre></td></tr></table></figure><p>HTTP header 中的 X_Forward_For 表示该条 http 请求是由谁发起的。如果反向代理服务器不重写该请求头的话，那么后端真实 web 服务器在处理时会认为所有的请求都来自反向代理服务器。如果后端 web 服务器有防攻击策略的话，那么反向代理服务器对应的 ip 地址就会被封掉。</p><p>上述配置的意思是增加一个 <code>$proxy_add_x_forwarded_for</code> 到 <code>X-Forwarded-For</code>里去，注意是增加，而不是覆盖。当然由于默认的 <code>X-Forwarded-For</code> 值是空的，所以我们总感觉 <code>X-Forwarded-For</code> 的值就等于 <code>$proxy_add_x_forwarded_for</code> 的值。</p><p><code>X-Forwarded-For</code>的格式为<code>X-Forwarded-For:real client ip, proxy ip 1, proxy ip N</code>，每经过一个反向代理就在请求头X-Forwarded-For后追加反向代理IP。</p><p><code>proxy_connect_timeout</code> nginx服务器与被代理的服务器建立连接的超时时间，默认60秒</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;no1-nginx-反向代理&quot;&gt;&lt;a href=&quot;#No1-Nginx-反向代理&quot; class=&quot;headerlink&quot; title=&quot;No1. Nginx 反向代理&quot;&gt;&lt;/a&gt;No1. Nginx 反向代理&lt;/h1&gt;&lt;p&gt;Nginx是一个高性能的HTTP和反向代
+      
+    
+    </summary>
+    
+    
+      <category term="服务器" scheme="http://zxysite.xyz/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+      <category term="Nginx" scheme="http://zxysite.xyz/tags/Nginx/"/>
+    
+      <category term="web" scheme="http://zxysite.xyz/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PAT备考 | 不会的题</title>
+    <link href="http://zxysite.xyz/2020/06/05/PAT%E5%A4%87%E8%80%83-%E4%B8%8D%E4%BC%9A%E7%9A%84%E9%A2%98/"/>
+    <id>http://zxysite.xyz/2020/06/05/PAT%E5%A4%87%E8%80%83-%E4%B8%8D%E4%BC%9A%E7%9A%84%E9%A2%98/</id>
     <published>2020-06-05T14:13:02.000Z</published>
-    <updated>2020-06-05T14:15:15.458Z</updated>
+    <updated>2020-06-05T14:17:39.319Z</updated>
     
     <content type="html"><![CDATA[<h3 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h3><p><a href="https://pintia.cn/problem-sets/994805342720868352/problems/994805375457411072" target="_blank" rel="noopener">A1091</a></p><h3 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h3><p><a href="https://pintia.cn/problem-sets/994805342720868352/problems/994805364711604224" target="_blank" rel="noopener">A1103</a></p>]]></content>
     
